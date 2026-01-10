@@ -1,5 +1,6 @@
 using Godot;
 using LaGamejaXYoYo.scripts;
+using LaGamejaXYoYo.scripts.player;
 using System;
 
 public partial class Player : CharacterBody2D {
@@ -18,6 +19,11 @@ public partial class Player : CharacterBody2D {
 	private bool mMovingToNewTile = false;
 	private Vector2 mTargetPosition = new Vector2(0.0f, 0.0f);
 
+	//** Actions
+	private PlayerMoveAction mPlayerMoveAction = null;
+	//
+	//**
+
 	public override void _Ready() {
 		mNavigationAgent2D = GetNode<NavigationAgent2D>("NavigationAgent2D");
 		mAuxNavAgent = GetNode<NavigationAgent2D>("AuxNavigationAgent");
@@ -26,8 +32,10 @@ public partial class Player : CharacterBody2D {
 	public override void _Input(InputEvent @event) {
 		base._Input(@event);
 
-		if (@event is InputEventMouseButton) {
-			MoveToNewTile();
+		if (Manager.sGameState == Manager.GameState.PlayerActions) {
+			if (@event is InputEventMouseButton ) {
+				NewMoveAction();
+			}
 		}
 	}
 
@@ -39,12 +47,12 @@ public partial class Player : CharacterBody2D {
 		mAuxNavAgent.IsNavigationFinished();
 		//**
 
-		if (!mAuxNavAgent.IsTargetReachable()) { 
-			return false; 
+		if (!mAuxNavAgent.IsTargetReachable()) {
+			return false;
 		}
 
 		Vector2[] navigationPath = mAuxNavAgent.GetCurrentNavigationPath();
-		
+
 		float distance = 0.0f;
 		Vector2 previous = Position;
 
@@ -56,12 +64,29 @@ public partial class Player : CharacterBody2D {
 		return distance < MaxMovementRangeInTiles * Utils.GetTileSize();
 	}
 
-	private void MoveToNewTile() {
+	private bool IsMoveActionDone() { 
+		return mPlayerMoveAction != null; 
+	}
+	private void NewMoveAction() {
+		// Only 1 move action
+		if (IsMoveActionDone()) {
+			return;
+		}
+
 		Vector2 newTargetPos = Utils.GetTilePosition(GetGlobalMousePosition());
 		if (IsInRangeForMovement(newTargetPos)) {
-			mNavigationAgent2D.TargetPosition = mTargetPosition = Utils.GetTilePosition(GetGlobalMousePosition());
-			mMovingToNewTile = true;
+			mPlayerMoveAction = new(newTargetPos, this);
 		}
+	}
+
+	// To be used by Move Action
+	public void MoveToNewTile(Vector2 target) {
+		mNavigationAgent2D.TargetPosition = mTargetPosition = target;
+		mMovingToNewTile = true;
+	}
+
+	public bool MovementFinished() {
+		return !mMovingToNewTile;
 	}
 
 	public override void _PhysicsProcess(double delta) {
@@ -87,13 +112,33 @@ public partial class Player : CharacterBody2D {
 
 
 	public override void _Process(double delta) {
-		// Handle target tile map highlight
-		Vector2 mousePosition = Utils.GetTilePosition(GetGlobalMousePosition());
-		if (IsInRangeForMovement(mousePosition)) {
-			mTargetTileHighlight.UpdatePosition(mousePosition);
-			mTargetTileHighlight.UpdateVisibility(true);
-		} else {
-			mTargetTileHighlight.UpdateVisibility(false);
+		if (Manager.sGameState == Manager.GameState.PlayerActions && !IsMoveActionDone()) {
+			// Handle target tile map highlight
+			Vector2 mousePosition = Utils.GetTilePosition(GetGlobalMousePosition());
+			if (IsInRangeForMovement(mousePosition)) {
+				mTargetTileHighlight.UpdatePosition(mousePosition);
+				mTargetTileHighlight.UpdateVisibility(true);
+			} else {
+				mTargetTileHighlight.UpdateVisibility(false);
+			}
 		}
+	}
+
+	public void ExecuteActions() {
+		if (IsMoveActionDone()) {
+			mPlayerMoveAction.Execute();
+		}
+	}
+
+	public bool AllActionsFinished() {
+		bool completed = true;
+		if (mPlayerMoveAction != null) {
+			if (mPlayerMoveAction.IsCompleted()) {
+				mPlayerMoveAction = null;
+			} else {
+				completed = false;
+			}
+		}
+		return completed;
 	}
 }

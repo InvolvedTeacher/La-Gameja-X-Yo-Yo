@@ -66,8 +66,9 @@ sources/1 = SubResource("TileSetAtlasSource_mu3wc")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c3x0q"]
 
-[node name="GameMap" type="Node2D"]
+[node name="GameMap" type="Node2D" node_paths=PackedStringArray("Player")]
 script = ExtResource("1_aymsu")
+Player = NodePath("Player")
 TurnTime = 5.0
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
