@@ -91,6 +91,7 @@ IndicatorScene = ExtResource("7_i6y63")
 manager = NodePath("..")
 
 [node name="HurricaneIndicator" type="Sprite2D" parent="."]
+visible = false
 modulate = Color(1.0234722, 1.0234722, 1.0234722, 0.7529412)
 scale = Vector2(2.75, 2.75)
 texture = ExtResource("8_sy12p")
