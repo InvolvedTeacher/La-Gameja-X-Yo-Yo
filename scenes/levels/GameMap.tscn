@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=4 uid="uid://bqx0bl7gg572a"]
+[gd_scene load_steps=9 format=4 uid="uid://bqx0bl7gg572a"]
 
 [ext_resource type="Script" uid="uid://crheqp72jvwmb" path="res://scenes/levels/Manager.cs" id="1_aymsu"]
 [ext_resource type="Texture2D" uid="uid://67xum1y4yag" path="res://assets/textures/basic_tiles.png" id="1_cmol2"]
 [ext_resource type="PackedScene" uid="uid://cbvtp7pob3x2q" path="res://scenes/player/player.tscn" id="3_aymsu"]
+[ext_resource type="PackedScene" uid="uid://bjqqt1hqkvua3" path="res://scenes/enemies/enemy_1.tscn" id="5_2747p"]
 [ext_resource type="Script" uid="uid://cn66xdv5ojwla" path="res://scenes/levels/FollowCamera2D.cs" id="6_aymsu"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_cmol2"]
@@ -71,8 +72,12 @@ tile_map_data = PackedByteArray("AAAAAAIAAQAGAAAAAAABAAIAAQAGAAAAAAAAAAEAAQAGAAA
 tile_set = SubResource("TileSet_c3x0q")
 
 [node name="Player" parent="." instance=ExtResource("3_aymsu")]
+Speed = 100.0
 
 [node name="FollowCamera2D" type="Camera2D" parent="."]
 script = ExtResource("6_aymsu")
 PlayerPath = NodePath("../Player")
 WorldMax = Vector2(1632, 960)
+
+[node name="Enemy1" parent="." instance=ExtResource("5_2747p")]
+position = Vector2(847, 51)

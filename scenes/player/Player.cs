@@ -4,13 +4,13 @@ using LaGamejaXYoYo.scripts.actions;
 using System;
 
 public partial class Player : BaseCharacter {
-	[Export]
-	public int MaxMovementRangeInTiles = 5;
-	[Export]
-	public float mSpeed = 100.0f;
 
 	[Export]
-	public TargetTileHighlight mTargetTileHighlight = null;
+	public TargetTileHighlight TargetTileHighlight {
+		get => mTargetTileHighlight;
+		set => mTargetTileHighlight = value;
+	}
+	private TargetTileHighlight mTargetTileHighlight = null;
 
 	private NavigationAgent2D mNavigationAgent2D = null;
 	private NavigationAgent2D mAuxNavAgent = null;

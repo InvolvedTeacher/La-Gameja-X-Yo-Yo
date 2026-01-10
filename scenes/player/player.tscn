@@ -6,9 +6,10 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c3x0q"]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("mTargetTileHighlight")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("TargetTileHighlight")]
 script = ExtResource("1_dovo2")
-mTargetTileHighlight = NodePath("TargetTileHighlight")
+Speed = 100.0
+TargetTileHighlight = NodePath("TargetTileHighlight")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 5.0

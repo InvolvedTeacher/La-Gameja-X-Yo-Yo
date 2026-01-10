@@ -3,8 +3,6 @@ using System;
 
 public partial class Enemy1 : BaseCharacter {
 
-
-
 	public override void MoveToNewTile(Vector2 target) {
 		// Todo
 	}
