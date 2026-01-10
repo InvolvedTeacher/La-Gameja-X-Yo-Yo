@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=4 uid="uid://bqx0bl7gg572a"]
+[gd_scene load_steps=11 format=4 uid="uid://bqx0bl7gg572a"]
 
 [ext_resource type="Script" uid="uid://crheqp72jvwmb" path="res://scenes/levels/Manager.cs" id="1_aymsu"]
 [ext_resource type="Texture2D" uid="uid://67xum1y4yag" path="res://assets/textures/basic_tiles.png" id="1_cmol2"]
 [ext_resource type="PackedScene" uid="uid://cbvtp7pob3x2q" path="res://scenes/player/player.tscn" id="3_aymsu"]
 [ext_resource type="PackedScene" uid="uid://bjqqt1hqkvua3" path="res://scenes/enemies/enemy_1.tscn" id="5_2747p"]
 [ext_resource type="Script" uid="uid://cn66xdv5ojwla" path="res://scenes/levels/FollowCamera2D.cs" id="6_aymsu"]
+[ext_resource type="Script" uid="uid://bgrgj7lq7gwxt" path="res://scenes/enemies/EnemyIndicatorManager.cs" id="6_i6y63"]
+[ext_resource type="PackedScene" uid="uid://d2qivxn5axi5d" path="res://scenes/enemies/EnemyIndicator.tscn" id="7_i6y63"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_cmol2"]
 vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
@@ -73,8 +75,15 @@ tile_map_data = PackedByteArray("AAAAAAIAAQAGAAAAAAABAAIAAQAGAAAAAAAAAAEAAQAGAAA
 tile_set = SubResource("TileSet_c3x0q")
 
 [node name="Player" parent="." instance=ExtResource("3_aymsu")]
+MaxMovementRangeInTiles = 20
+Speed = 500.0
 
 [node name="FollowCamera2D" type="Camera2D" parent="."]
 script = ExtResource("6_aymsu")
 PlayerPath = NodePath("../Player")
 WorldMax = Vector2(1632, 960)
+
+[node name="EnemyIndicatorManager" type="CanvasLayer" parent="." node_paths=PackedStringArray("manager")]
+script = ExtResource("6_i6y63")
+IndicatorScene = ExtResource("7_i6y63")
+manager = NodePath("..")

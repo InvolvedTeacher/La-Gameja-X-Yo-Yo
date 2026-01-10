@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2qivxn5axi5d"]
+
+[ext_resource type="Texture2D" uid="uid://bg52bseaqep7e" path="res://assets/textures/targetTileEnemy.png" id="1_mnlu1"]
+
+[node name="EnemyIndicator" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.5019608)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_mnlu1")

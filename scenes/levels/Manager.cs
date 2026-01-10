@@ -31,7 +31,7 @@ public partial class Manager : Node2D {
 	}
 	private PackedScene mEnemy1;
 
-	private List<Enemy> enemies = new List<Enemy>();
+	private List<Enemy> mEnemies = new List<Enemy>();
 
 	private float mElapsedTime = 0.0f;
 
@@ -46,8 +46,10 @@ public partial class Manager : Node2D {
 		AddChild(newEnemy);
 		newEnemy.Spawn(new Vector2(336, 176), mPlayer);
 
-		enemies.Add(newEnemy);
+		mEnemies.Add(newEnemy);
 	}
+
+	public List<Enemy> GetEnemies() { return mEnemies; }
 
 	public override void _Input(InputEvent @event) {
 		base._Input(@event);
@@ -63,7 +65,7 @@ public partial class Manager : Node2D {
 			AddChild(newEnemy);
 			newEnemy.Spawn(new Vector2(336, 176), mPlayer);
 
-			enemies.Add(newEnemy);
+			mEnemies.Add(newEnemy);
 		}
 	}
 
@@ -77,7 +79,7 @@ public partial class Manager : Node2D {
 	}
 
 	private void PrepareEnemyActions() {
-		foreach (var enemy in enemies) {
+		foreach (var enemy in mEnemies) {
 			enemy.PrepareActions();
 		}
 	}
@@ -104,7 +106,7 @@ public partial class Manager : Node2D {
 			case GameState.ExecuteActions: {
 					// Execute all player and enemies actions
 					mPlayer.ExecuteActions();
-					foreach (var enemy in enemies) {
+					foreach (var enemy in mEnemies) {
 						enemy.ExecuteActions(); 
 					}
 
@@ -117,7 +119,7 @@ public partial class Manager : Node2D {
 
 					completed &= mPlayer.AllActionsFinished();
 
-					foreach (var enemy in enemies) {
+					foreach (var enemy in mEnemies) {
 						completed &= enemy.AllActionsFinished();
 					}
 
