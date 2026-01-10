@@ -104,7 +104,6 @@ public partial class Manager : Node2D {
 					if (completed) {
 						sGameState = GameState.PlayerActions;
 						PrepareEnemyActions();
-						GD.Print("preparing actions");
 					}
 
 				}

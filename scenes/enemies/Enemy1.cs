@@ -46,23 +46,16 @@ public partial class Enemy1 : Enemy {
 
 	public override void PrepareActions() {
 		// basic enemy - just move to player
-		GD.Print("PrepareActions enemy 1");
-		GD.Print("Target: " + mPlayer.GetTilePosition());
-
 		mMoveAction = new(mPlayer.GetTilePosition(), this);
 	}
 
 	public override void ExecuteActions() {
-		GD.Print("ExecuteActions enemy 1");
-
 		if (mMoveAction != null) {
 			mMoveAction.Execute();
 		}
 	}
 
 	public override bool AllActionsFinished() {
-		GD.Print("AllActionsFinished enemy 1");
-
 		bool completed = true;
 		if (mMoveAction != null) {
 			if (mMoveAction.IsCompleted()) {
