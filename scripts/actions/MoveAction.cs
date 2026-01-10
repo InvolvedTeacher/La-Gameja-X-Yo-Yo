@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LaGamejaXYoYo.scripts.player {
-    internal class PlayerMoveAction : Action {
+namespace LaGamejaXYoYo.scripts.actions {
+    internal class MoveAction : Action {
 
         private Vector2 mTargetPosition;
-        private Player mPlayer;
+        private BaseCharacter mPlayer;
     
-        public PlayerMoveAction(Vector2 target, Player player) {
+        public MoveAction(Vector2 target, Player player) {
             mTargetPosition = target;
             mPlayer = player;
         }
@@ -23,5 +23,8 @@ namespace LaGamejaXYoYo.scripts.player {
         public override bool IsCompleted() {
             return mPlayer.MovementFinished();
         }
+
+
+        public Vector2 GetTargetPostion() { return mTargetPosition; }
     }
 }

@@ -1,9 +1,9 @@
 using Godot;
 using LaGamejaXYoYo.scripts;
-using LaGamejaXYoYo.scripts.player;
+using LaGamejaXYoYo.scripts.actions;
 using System;
 
-public partial class Player : CharacterBody2D {
+public partial class Player : BaseCharacter {
 	[Export]
 	public int MaxMovementRangeInTiles = 5;
 	[Export]
@@ -20,7 +20,7 @@ public partial class Player : CharacterBody2D {
 	private Vector2 mTargetPosition = new Vector2(0.0f, 0.0f);
 
 	//** Actions
-	private PlayerMoveAction mPlayerMoveAction = null;
+	private MoveAction mPlayerMoveAction = null;
 	//
 	//**
 
@@ -80,12 +80,12 @@ public partial class Player : CharacterBody2D {
 	}
 
 	// To be used by Move Action
-	public void MoveToNewTile(Vector2 target) {
+	public override void MoveToNewTile(Vector2 target) {
 		mNavigationAgent2D.TargetPosition = mTargetPosition = target;
 		mMovingToNewTile = true;
 	}
 
-	public bool MovementFinished() {
+	public override bool MovementFinished() {
 		return !mMovingToNewTile;
 	}
 
@@ -112,11 +112,19 @@ public partial class Player : CharacterBody2D {
 
 
 	public override void _Process(double delta) {
-		if (Manager.sGameState == Manager.GameState.PlayerActions && !IsMoveActionDone()) {
+		if (Manager.sGameState != Manager.GameState.PlayerActions) {
+
+			if (IsMoveActionDone()) {
+				mTargetTileHighlight.GlobalPosition = mPlayerMoveAction.GetTargetPostion();
+			}
+			return;
+		}
+
+		if (!IsMoveActionDone()) {
 			// Handle target tile map highlight
 			Vector2 mousePosition = Utils.GetTilePosition(GetGlobalMousePosition());
 			if (IsInRangeForMovement(mousePosition)) {
-				mTargetTileHighlight.UpdatePosition(mousePosition);
+				mTargetTileHighlight.GlobalPosition = mousePosition;
 				mTargetTileHighlight.UpdateVisibility(true);
 			} else {
 				mTargetTileHighlight.UpdateVisibility(false);
