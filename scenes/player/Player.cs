@@ -5,13 +5,6 @@ using System;
 
 public partial class Player : BaseCharacter {
 
-	[Export]
-	public TargetTileHighlight TargetTileHighlight {
-		get => mTargetTileHighlight;
-		set => mTargetTileHighlight = value;
-	}
-	private TargetTileHighlight mTargetTileHighlight = null;
-
 	private NavigationAgent2D mNavigationAgent2D = null;
 	private NavigationAgent2D mAuxNavAgent = null;
 

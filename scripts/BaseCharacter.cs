@@ -17,7 +17,14 @@ public abstract partial class BaseCharacter : CharacterBody2D {
     }
     internal float mSpeed = 100.0f;
 
-	public abstract void MoveToNewTile(Vector2 target);
+    [Export]
+    public TargetTileHighlight TargetTileHighlight {
+        get => mTargetTileHighlight;
+        set => mTargetTileHighlight = value;
+    }
+    internal TargetTileHighlight mTargetTileHighlight = null;
+
+    public abstract void MoveToNewTile(Vector2 target);
 
 	public abstract bool MovementFinished();
 

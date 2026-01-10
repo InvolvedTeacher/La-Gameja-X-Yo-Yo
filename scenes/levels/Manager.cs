@@ -51,7 +51,10 @@ public partial class Manager : Node2D {
 		base._Input(@event);
 
 		if (Input.IsActionJustPressed("ui_accept")) {
-			sGameState = GameState.ExecuteActions;
+			if (sGameState == GameState.PlayerActions) {
+				mElapsedTime = 0.0f;
+				sGameState = GameState.ExecuteActions;
+			}
 		}
 	}
 

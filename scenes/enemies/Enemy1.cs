@@ -41,6 +41,14 @@ public partial class Enemy1 : Enemy {
 		MoveAndSlide();
 	}
 
+	public override void _Process(double delta) {
+		if (Manager.sGameState != Manager.GameState.PlayerActions) {
+
+			mTargetTileHighlight.GlobalPosition = mTargetPosition;
+			mTargetTileHighlight.UpdateVisibility(true);
+		}
+	}
+
 	public override void Attack() {
 		// Todo
 	}
@@ -74,6 +82,9 @@ public partial class Enemy1 : Enemy {
 		}
 
 		targetPosition = Utils.GetTilePosition(previous);
+
+		mTargetTileHighlight.GlobalPosition = targetPosition;
+		mTargetTileHighlight.UpdateVisibility(true);
 
 		mMoveAction = new(targetPosition, this);
 	}
