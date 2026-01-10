@@ -39,7 +39,12 @@ public partial class Player : CharacterBody2D {
 		mAuxNavAgent.IsNavigationFinished();
 		//**
 
+		if (!mAuxNavAgent.IsTargetReachable()) { 
+			return false; 
+		}
+
 		Vector2[] navigationPath = mAuxNavAgent.GetCurrentNavigationPath();
+		
 		float distance = 0.0f;
 		Vector2 previous = Position;
 

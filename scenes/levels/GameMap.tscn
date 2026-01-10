@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://bqx0bl7gg572a"]
+[gd_scene load_steps=12 format=4 uid="uid://bqx0bl7gg572a"]
 
 [ext_resource type="Script" uid="uid://crheqp72jvwmb" path="res://scenes/levels/Manager.cs" id="1_aymsu"]
 [ext_resource type="Texture2D" uid="uid://67xum1y4yag" path="res://assets/textures/basic_tiles.png" id="1_cmol2"]
@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://jasymgdmgwj7" path="res://assets/textures/player.png" id="3_lus0e"]
 [ext_resource type="Texture2D" uid="uid://bryw1gdjmi8mx" path="res://assets/textures/targetTile.png" id="4_2747p"]
 [ext_resource type="Script" uid="uid://jr2v2rouboh8" path="res://scenes/levels/TargetTileHighlight.cs" id="5_aymsu"]
-[ext_resource type="Script" path="res://scenes/levels/FollowCamera2D.cs" id="6_aymsu"]
+[ext_resource type="Script" uid="uid://cn66xdv5ojwla" path="res://scenes/levels/FollowCamera2D.cs" id="6_aymsu"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_cmol2"]
 vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
@@ -95,6 +95,7 @@ shape = SubResource("RectangleShape2D_c3x0q")
 [node name="AuxNavigationAgent" type="NavigationAgent2D" parent="Player"]
 path_desired_distance = 5.0
 target_desired_distance = 5.0
+path_postprocessing = 1
 avoidance_enabled = true
 
 [node name="TargetTileHighlight" type="Sprite2D" parent="."]
