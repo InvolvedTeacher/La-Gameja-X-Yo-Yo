@@ -56,6 +56,13 @@ public partial class Manager : Node2D {
 				sGameState = GameState.ExecuteActions;
 			}
 		}
+		if (@event is InputEventKey keyEvent && keyEvent.Pressed && keyEvent.Keycode == Key.E) {
+			Enemy newEnemy = Enemy1.Instantiate<Enemy>();
+			AddChild(newEnemy);
+			newEnemy.Spawn(new Vector2(336, 176), mPlayer);
+
+			enemies.Add(newEnemy);
+		}
 	}
 
 	private void PrepareEnemyActions() {
