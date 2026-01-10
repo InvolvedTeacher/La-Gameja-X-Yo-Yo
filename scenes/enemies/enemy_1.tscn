@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://bjqqt1hqkvua3"]
+
+[ext_resource type="Texture2D" uid="uid://d1e6xh8r2ly4s" path="res://assets/textures/enemy.png" id="1_db084"]
+[ext_resource type="Script" uid="uid://bq8y3ryu2iarf" path="res://scenes/enemies/Enemy1.cs" id="1_lsxte"]
+[ext_resource type="PackedScene" uid="uid://c501klbhn5e21" path="res://scenes/player/targetTileHighlight.tscn" id="3_j430y"]
+[ext_resource type="Texture2D" uid="uid://bg52bseaqep7e" path="res://assets/textures/targetTileEnemy.png" id="4_wjupi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lsxte"]
+
+[node name="Enemy1" type="CharacterBody2D" node_paths=PackedStringArray("TargetTileHighlight")]
+script = ExtResource("1_lsxte")
+TargetTileHighlight = NodePath("TargetTileHighlight")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 5.0
+target_desired_distance = 5.0
+path_postprocessing = 1
+avoidance_enabled = true
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(1, 0, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_db084")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1.5, 1.5)
+shape = SubResource("RectangleShape2D_lsxte")
+disabled = true
+
+[node name="AuxNavigationAgent" type="NavigationAgent2D" parent="."]
+path_desired_distance = 5.0
+target_desired_distance = 5.0
+path_postprocessing = 1
+avoidance_enabled = true
+
+[node name="TargetTileHighlight" parent="." instance=ExtResource("3_j430y")]
+texture = ExtResource("4_wjupi")

@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://cbvtp7pob3x2q"]
+
+[ext_resource type="Script" uid="uid://vg322v5hm0lp" path="res://scenes/player/Player.cs" id="1_dovo2"]
+[ext_resource type="Texture2D" uid="uid://jasymgdmgwj7" path="res://assets/textures/player.png" id="2_gmlin"]
+[ext_resource type="PackedScene" uid="uid://c501klbhn5e21" path="res://scenes/player/targetTileHighlight.tscn" id="3_gmlin"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c3x0q"]
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("TargetTileHighlight")]
+script = ExtResource("1_dovo2")
+MaxMovementRangeInTiles = 10
+TargetTileHighlight = NodePath("TargetTileHighlight")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 5.0
+target_desired_distance = 5.0
+path_postprocessing = 1
+avoidance_enabled = true
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(0, 0.5019608, 1, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_gmlin")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1.5, 1.5)
+shape = SubResource("RectangleShape2D_c3x0q")
+
+[node name="AuxNavigationAgent" type="NavigationAgent2D" parent="."]
+path_desired_distance = 5.0
+target_desired_distance = 5.0
+path_postprocessing = 1
+avoidance_enabled = true
+
+[node name="TargetTileHighlight" parent="." instance=ExtResource("3_gmlin")]
+
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]

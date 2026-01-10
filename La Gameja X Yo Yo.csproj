@@ -5,4 +5,7 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>LaGamejaXYoYo</RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="scripts\player\" />
+  </ItemGroup>
 </Project>

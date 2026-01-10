@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c501klbhn5e21"]
+
+[ext_resource type="Texture2D" uid="uid://bryw1gdjmi8mx" path="res://assets/textures/targetTile.png" id="1_f408d"]
+[ext_resource type="Script" uid="uid://jr2v2rouboh8" path="res://scenes/player/TargetTileHighlight.cs" id="2_sudgb"]
+
+[node name="TargetTileHighlight" type="Sprite2D"]
+modulate = Color(1, 1, 1, 0.5019608)
+texture = ExtResource("1_f408d")
+script = ExtResource("2_sudgb")
