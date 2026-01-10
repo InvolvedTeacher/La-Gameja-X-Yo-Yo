@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://jasymgdmgwj7" path="res://assets/textures/player.png" id="3_lus0e"]
 [ext_resource type="Texture2D" uid="uid://bryw1gdjmi8mx" path="res://assets/textures/targetTile.png" id="4_2747p"]
 [ext_resource type="Script" uid="uid://jr2v2rouboh8" path="res://scenes/levels/TargetTileHighlight.cs" id="5_aymsu"]
+[ext_resource type="Script" path="res://scenes/levels/FollowCamera2D.cs" id="6_aymsu"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_cmol2"]
 vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
@@ -92,11 +93,19 @@ scale = Vector2(1.5, 1.5)
 shape = SubResource("RectangleShape2D_c3x0q")
 
 [node name="AuxNavigationAgent" type="NavigationAgent2D" parent="Player"]
+path_desired_distance = 5.0
+target_desired_distance = 5.0
+avoidance_enabled = true
 
 [node name="TargetTileHighlight" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.5019608)
 position = Vector2(108, -5)
 texture = ExtResource("4_2747p")
 script = ExtResource("5_aymsu")
+
+[node name="FollowCamera2D" type="Camera2D" parent="."]
+script = ExtResource("6_aymsu")
+PlayerPath = NodePath("../Player")
+WorldMax = Vector2(1632, 960)
 
 [connection signal="velocity_computed" from="Player/NavigationAgent2D" to="Player" method="_on_navigation_agent_2d_velocity_computed"]
