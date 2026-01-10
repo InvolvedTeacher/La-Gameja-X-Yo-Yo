@@ -1,3 +1,4 @@
+using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace LaGamejaXYoYo.scripts {
-    internal class Action {
+    internal partial class Action : Node2D {
         public Action() { }
 
         public virtual void Execute() {

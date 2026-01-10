@@ -99,13 +99,13 @@ public partial class Enemy1 : Enemy {
 		}
 	}
 
-	public override void ExecuteActions() {
+	public override void ExecuteMovement() {
 		if (mMoveAction != null) {
 			mMoveAction.Execute();
 		}
 	}
 
-	public override bool AllActionsFinished() {
+	public override bool MovementActionFinished() {
 		bool completed = true;
 		if (mMoveAction != null) {
 			if (mMoveAction.IsCompleted()) {
@@ -117,4 +117,16 @@ public partial class Enemy1 : Enemy {
 		return completed;
 	}
 
+	public override void ExecuteAttack() {
+		// Todo
+	}
+
+	public override bool AttackActionFinished() {
+		// Todo
+		return true;
+	}
+
+	public override void ExecuteDamage() {
+		// Tood
+	}
 }

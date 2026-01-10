@@ -1,9 +1,18 @@
 using Godot;
 using LaGamejaXYoYo.scripts;
 using LaGamejaXYoYo.scripts.actions;
+using LaGamejaXYoYo.scripts.actions.attack;
+using LaGamejaXYoYo.scripts.actions.attack.player;
 using System;
 
 public partial class Player : BaseCharacter {
+
+	[Export]
+	public Manager manager {
+		get => mManager;
+		set => mManager = value;
+	}
+	private Manager mManager;
 
 	private NavigationAgent2D mNavigationAgent2D = null;
 	private NavigationAgent2D mAuxNavAgent = null;
@@ -14,7 +23,7 @@ public partial class Player : BaseCharacter {
 
 	//** Actions
 	private MoveAction mPlayerMoveAction = null;
-	//
+	private Attack mAttackAction = null;
 	//**
 
 	public override void _Ready() {
@@ -26,8 +35,15 @@ public partial class Player : BaseCharacter {
 		base._Input(@event);
 
 		if (Manager.sGameState == Manager.GameState.PlayerActions) {
-			if (@event is InputEventMouseButton ) {
+			if (@event is InputEventMouseButton) {
 				NewMoveAction();
+			}
+
+			if (IsMoveActionDone()) {
+				if (@event is InputEventKey keyEvent && keyEvent.Pressed && keyEvent.Keycode == Key.Q) {
+					GD.Print("Hurricane Attack");
+					HurricaneAttack();
+				}
 			}
 		}
 	}
@@ -61,8 +77,8 @@ public partial class Player : BaseCharacter {
 		return distance < MaxMovementRangeInTiles * Utils.GetTileSize();
 	}
 
-	private bool IsMoveActionDone() { 
-		return mPlayerMoveAction != null; 
+	private bool IsMoveActionDone() {
+		return mPlayerMoveAction != null;
 	}
 	private void NewMoveAction() {
 		// Only 1 move action
@@ -74,6 +90,10 @@ public partial class Player : BaseCharacter {
 		if (IsInRangeForMovement(newTargetPos)) {
 			mPlayerMoveAction = new(newTargetPos, this);
 		}
+	}
+
+	private void HurricaneAttack() {
+		mAttackAction = new Hurricane(mManager);
 	}
 
 	// To be used by Move Action
@@ -129,13 +149,13 @@ public partial class Player : BaseCharacter {
 		}
 	}
 
-	public override void ExecuteActions() {
+	public override void ExecuteMovement() {
 		if (IsMoveActionDone()) {
 			mPlayerMoveAction.Execute();
 		}
 	}
 
-	public override bool AllActionsFinished() {
+	public override bool MovementActionFinished() {
 		bool completed = true;
 		if (mPlayerMoveAction != null) {
 			if (mPlayerMoveAction.IsCompleted()) {
@@ -145,5 +165,25 @@ public partial class Player : BaseCharacter {
 			}
 		}
 		return completed;
+	}
+
+	public override void ExecuteAttack() {
+		GD.Print("ExecuteAttack...");
+		if (mAttackAction == null) { 
+			return;
+		}
+		mAttackAction.Execute();
+	}
+
+	public override bool AttackActionFinished() {
+		bool completed = true;
+		// Todo: animation finished?
+		mAttackAction = null;
+
+		return completed;
+	}
+
+	public override void ExecuteDamage() {
+		// Todo
 	}
 }

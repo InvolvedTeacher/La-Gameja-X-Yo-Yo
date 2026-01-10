@@ -6,8 +6,11 @@ public partial class Manager : Node2D {
 	public enum GameState {
 		Error = -1,
 		PlayerActions,
-		ExecuteActions,
-		ExecutingActions
+		ExecuteMovement,
+		Move,
+		PrepareAttack,
+		Attack,
+		TakeDamage
 	}
 
 	[Export]
@@ -51,13 +54,15 @@ public partial class Manager : Node2D {
 
 	public List<Enemy> GetEnemies() { return mEnemies; }
 
+	public Player GetPlayer() { return mPlayer; }
+
 	public override void _Input(InputEvent @event) {
 		base._Input(@event);
 
 		if (Input.IsActionJustPressed("ui_accept")) {
 			if (sGameState == GameState.PlayerActions) {
 				mElapsedTime = 0.0f;
-				sGameState = GameState.ExecuteActions;
+				sGameState = GameState.ExecuteMovement;
 			}
 		}
 		if (@event is InputEventKey keyEvent && keyEvent.Pressed && keyEvent.Keycode == Key.E) {
@@ -87,7 +92,7 @@ public partial class Manager : Node2D {
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta) {
 
-		
+
 		switch (sGameState) {
 			case GameState.Error: {
 					GD.Print("Somethings really bad");
@@ -96,44 +101,72 @@ public partial class Manager : Node2D {
 			case GameState.PlayerActions: {
 					if (mElapsedTime >= mTurnTime) {
 						mElapsedTime = 0.0f;
-						sGameState = GameState.ExecuteActions;
+						sGameState = GameState.ExecuteMovement;
 
 					} else {
 						mElapsedTime += (float)delta;
 					}
 				}
 				break;
-			case GameState.ExecuteActions: {
-					// Execute all player and enemies actions
-					mPlayer.ExecuteActions();
+			case GameState.ExecuteMovement: {
+					// Execute all player and enemies movement
+					mPlayer.ExecuteMovement();
 					foreach (var enemy in mEnemies) {
-						enemy.ExecuteActions(); 
+						enemy.ExecuteMovement();
 					}
 
-					sGameState = GameState.ExecutingActions;
+					sGameState = GameState.Move;
 				}
 				break;
-			case GameState.ExecutingActions: {
-					// Wait untill all actions are completed
+			case GameState.Move: {
+					// Wait untill movement is completed
 					bool completed = true;
 
-					completed &= mPlayer.AllActionsFinished();
+					completed &= mPlayer.MovementActionFinished();
 
 					foreach (var enemy in mEnemies) {
-						completed &= enemy.AllActionsFinished();
+						completed &= enemy.MovementActionFinished();
 					}
 
-					// Enemies prepare next turn
 					if (completed) {
-						sGameState = GameState.PlayerActions;
-						mOccupiedTiles.Clear();
-						PrepareEnemyActions();
+						sGameState = GameState.PrepareAttack;
 					}
+				}
+				break;
+			case GameState.PrepareAttack: {
+					mPlayer.ExecuteAttack();
+					foreach (var enemy in mEnemies) {
+						enemy.ExecuteAttack();
+					}
+
+					sGameState = GameState.Attack;
+				}
+				break;
+			case GameState.Attack: {
+					bool completed = true;
+
+					completed &= mPlayer.AttackActionFinished();
+
+					foreach (var enemy in mEnemies) {
+						completed &= enemy.AttackActionFinished();
+					}
+
+					if (completed) {
+						sGameState = GameState.TakeDamage;
+					}
+				}
+				break;
+
+			case GameState.TakeDamage: {
+
+
+					// Enemies prepare next turn
+					sGameState = GameState.PlayerActions;
+					mOccupiedTiles.Clear();
+					PrepareEnemyActions();
 
 				}
 				break;
-		}
-		if (sGameState == GameState.ExecuteActions) {
 
 		}
 	}
