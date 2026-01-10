@@ -42,7 +42,7 @@ public partial class Manager : Node2D {
 		sGameState = GameState.PlayerActions;
 		Enemy newEnemy = Enemy1.Instantiate<Enemy>();
 		AddChild(newEnemy);
-		newEnemy.Spawn(new Vector2(320, 160), mPlayer);
+		newEnemy.Spawn(new Vector2(336, 176), mPlayer);
 
 		enemies.Add(newEnemy);
 	}

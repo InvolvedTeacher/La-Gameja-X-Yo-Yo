@@ -1,4 +1,5 @@
 using Godot;
+using LaGamejaXYoYo.scripts;
 using LaGamejaXYoYo.scripts.actions;
 using System;
 
@@ -46,7 +47,35 @@ public partial class Enemy1 : Enemy {
 
 	public override void PrepareActions() {
 		// basic enemy - just move to player
-		mMoveAction = new(mPlayer.GetTilePosition(), this);
+		Vector2 targetPosition = mPlayer.GetTilePosition();
+
+		mAuxNavAgent.TargetPosition = targetPosition;
+		//** Force navigation calculation
+		//** Known godot issue due to multithreading **
+		mAuxNavAgent.IsNavigationFinished();
+		//**
+		if (!mAuxNavAgent.IsTargetReachable()) {
+			return;
+		}
+
+		Vector2[] navigationPath = mAuxNavAgent.GetCurrentNavigationPath();
+
+		float distance = 0.0f;
+		Vector2 previous = Position;
+
+		foreach (Vector2 path in navigationPath) {
+			distance += previous.DistanceTo(path);
+
+			if (distance > mMaxMovementRangeInTiles * Utils.GetTileSize()) {
+				break;
+			}
+
+			previous = path;
+		}
+
+		targetPosition = Utils.GetTilePosition(previous);
+
+		mMoveAction = new(targetPosition, this);
 	}
 
 	public override void ExecuteActions() {

@@ -24,3 +24,9 @@ texture = ExtResource("1_db084")
 scale = Vector2(1.5, 1.5)
 shape = SubResource("RectangleShape2D_lsxte")
 disabled = true
+
+[node name="AuxNavigationAgent" type="NavigationAgent2D" parent="."]
+path_desired_distance = 5.0
+target_desired_distance = 5.0
+path_postprocessing = 1
+avoidance_enabled = true
