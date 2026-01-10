@@ -3,8 +3,6 @@ using System;
 
 namespace LaGamejaXYoYo.scripts {
     public partial class Utils {
-        [Export]
-        public static int MaxMovementRange = 5;
 
         private const int kTileSize = 32;
         private const int kHalfSize = kTileSize / 2;
@@ -16,9 +14,5 @@ namespace LaGamejaXYoYo.scripts {
         }
 
         public static int GetTileSize() { return kTileSize; }
-
-        public static bool IsInRange(Vector2 position1, Vector2 position2) {
-            return (position1.DistanceTo(position2) <= kTileSize * MaxMovementRange);
-        }
     }
 }
