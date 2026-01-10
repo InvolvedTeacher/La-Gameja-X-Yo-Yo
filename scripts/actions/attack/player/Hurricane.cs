@@ -16,7 +16,13 @@ namespace LaGamejaXYoYo.scripts.actions.attack.player {
 			set => mDamage = value;
 		}
 		private int mDamage = 1;
-		public Hurricane(Manager manager) : base(manager) {
+
+		private Sprite2D mIndicator;
+		
+		public Hurricane(Manager manager, Vector2 location) : base(manager) {
+			mIndicator = mManager.GetNode<Sprite2D>("HurricaneIndicator");
+			mIndicator.Visible = true;
+			mIndicator.Position = location;
 		}
 
 		public List<Enemy> GetEnemiesInRadius(Vector2 center, int radius) {
@@ -32,14 +38,6 @@ namespace LaGamejaXYoYo.scripts.actions.attack.player {
 			}
 			return result;
 		}
-		public override void _Draw() {
-			DrawCircle(
-				mManager.GetPlayer().GlobalPosition,
-				Utils.GetTileSize(),
-				new Color(1, 0, 0, 0.3f)
-			);
-		}
-
 
 		public override void Execute() {
 			Vector2 playerTile = Utils.GetTilePosition(mManager.GetPlayer().GlobalPosition);
@@ -49,6 +47,8 @@ namespace LaGamejaXYoYo.scripts.actions.attack.player {
 			foreach (Enemy enemy in targets) {
 				enemy.TakeDamage(mDamage);
 			}
+
+			mIndicator.Visible = false;
 		}
 
 		public override bool IsCompleted() { return true; }

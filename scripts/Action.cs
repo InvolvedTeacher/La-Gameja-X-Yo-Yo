@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace LaGamejaXYoYo.scripts {
-    internal partial class Action : Node2D {
+    internal partial class Action {
         public Action() { }
 
         public virtual void Execute() {

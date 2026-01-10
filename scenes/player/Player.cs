@@ -92,7 +92,7 @@ public partial class Player : BaseCharacter {
 	}
 
 	private void HurricaneAttack() {
-		mAttackAction = new Hurricane(mManager);
+		mAttackAction = new Hurricane(mManager, mPlayerMoveAction.GetTargetPostion());
 	}
 
 	// To be used by Move Action
