@@ -26,9 +26,9 @@ namespace LaGamejaXYoYo.scripts.actions.attack.player {
 				Vector2 enemyTile = enemy.Position;
 
 				float distance = center.DistanceTo(enemyTile);
-
-				if (distance <= radius)
+				if (distance <= radius) {
 					result.Add(enemy);
+				}
 			}
 			return result;
 		}
@@ -46,7 +46,7 @@ namespace LaGamejaXYoYo.scripts.actions.attack.player {
 
 			var targets = GetEnemiesInRadius(playerTile, Utils.GetTileSize());
 
-			foreach (Enemy enemy in mManager.GetEnemies()) {
+			foreach (Enemy enemy in targets) {
 				enemy.TakeDamage(mDamage);
 			}
 		}
