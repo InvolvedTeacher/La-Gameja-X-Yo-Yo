@@ -8,7 +8,6 @@
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("TargetTileHighlight")]
 script = ExtResource("1_dovo2")
-Speed = 100.0
 TargetTileHighlight = NodePath("TargetTileHighlight")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

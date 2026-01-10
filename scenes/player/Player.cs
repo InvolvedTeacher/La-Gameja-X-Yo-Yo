@@ -39,6 +39,10 @@ public partial class Player : BaseCharacter {
 		}
 	}
 
+	public Vector2 GetTilePosition() {
+		return Utils.GetTilePosition(Position);
+	}
+
 	private bool IsInRangeForMovement(Vector2 target) {
 		mAuxNavAgent.TargetPosition = target;
 
@@ -132,13 +136,13 @@ public partial class Player : BaseCharacter {
 		}
 	}
 
-	public void ExecuteActions() {
+	public override void ExecuteActions() {
 		if (IsMoveActionDone()) {
 			mPlayerMoveAction.Execute();
 		}
 	}
 
-	public bool AllActionsFinished() {
+	public override bool AllActionsFinished() {
 		bool completed = true;
 		if (mPlayerMoveAction != null) {
 			if (mPlayerMoveAction.IsCompleted()) {

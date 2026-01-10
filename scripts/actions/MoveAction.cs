@@ -9,19 +9,19 @@ namespace LaGamejaXYoYo.scripts.actions {
     internal class MoveAction : Action {
 
         private Vector2 mTargetPosition;
-        private BaseCharacter mPlayer;
+        private BaseCharacter mEntity;
     
-        public MoveAction(Vector2 target, Player player) {
+        public MoveAction(Vector2 target, BaseCharacter entity) {
             mTargetPosition = target;
-            mPlayer = player;
+            mEntity = entity;
         }
 
         public override void Execute() {
-            mPlayer.MoveToNewTile(mTargetPosition);
+            mEntity.MoveToNewTile(mTargetPosition);
         }
 
         public override bool IsCompleted() {
-            return mPlayer.MovementFinished();
+            return mEntity.MovementFinished();
         }
 
 
