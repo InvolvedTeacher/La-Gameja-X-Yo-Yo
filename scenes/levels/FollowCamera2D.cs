@@ -10,18 +10,18 @@ public partial class FollowCamera2D : Camera2D {
     [Export] public Vector2 WorldMin;
     [Export] public Vector2 WorldMax;
 
-    private Node2D _player;
+    private Node2D mPlayer;
 
     public override void _Ready() {
-        _player = GetNode<Node2D>(PlayerPath);
+        mPlayer = GetNode<Node2D>(PlayerPath);
     }
 
     public override void _Process(double delta) {
-        if (_player == null)
+        if (mPlayer == null)
             return;
 
         Vector2 cameraPos = GlobalPosition;
-        Vector2 playerPos = _player.GlobalPosition;
+        Vector2 playerPos = mPlayer.GlobalPosition;
 
         // Dead zone rectangle centered on the camera
         Rect2 deadZone = new Rect2(
