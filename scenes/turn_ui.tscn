@@ -1,0 +1,151 @@
+[gd_scene load_steps=17 format=3 uid="uid://bl2xr5rb3mp0h"]
+
+[ext_resource type="Script" uid="uid://cfhs7hvqht17o" path="res://scripts/ui/TurnUi.cs" id="1_6ik6a"]
+[ext_resource type="Texture2D" uid="uid://cue20bv8tdfq0" path="res://assets/textures/UI/papyrus.png" id="1_vjqgn"]
+[ext_resource type="Theme" uid="uid://b31xhpxsx6kx7" path="res://assets/textures/UI/Buttons/button.tres" id="1_w22if"]
+[ext_resource type="Texture2D" uid="uid://c6fviu4th2djm" path="res://assets/textures/UI/Clock/sand clock-Sheet.png" id="3_r8trk"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_6ik6a"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_0m63l"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_xkpdp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_67rcy"]
+atlas = ExtResource("3_r8trk")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1l5dr"]
+atlas = ExtResource("3_r8trk")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m3nes"]
+atlas = ExtResource("3_r8trk")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5d1kh"]
+atlas = ExtResource("3_r8trk")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iv3iy"]
+atlas = ExtResource("3_r8trk")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06gii"]
+atlas = ExtResource("3_r8trk")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0pscc"]
+atlas = ExtResource("3_r8trk")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v3ph0"]
+atlas = ExtResource("3_r8trk")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_puc7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_67rcy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1l5dr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m3nes")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5d1kh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iv3iy")
+}, {
+"duration": 0.1,
+"texture": SubResource("AtlasTexture_06gii")
+}, {
+"duration": 0.1,
+"texture": SubResource("AtlasTexture_0pscc")
+}, {
+"duration": 0.1,
+"texture": SubResource("AtlasTexture_v3ph0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[node name="Turn_UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6ik6a")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(320, 302.1625)
+scale = Vector2(0.532, 0.27907148)
+texture = ExtResource("1_vjqgn")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.10200001
+anchor_top = 0.75000006
+anchor_right = 0.28100002
+anchor_bottom = 0.91700006
+offset_left = -0.2800064
+offset_top = -3.0517578e-05
+offset_right = 0.1599884
+offset_bottom = -0.120025635
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_w22if")
+text = "Skill 1"
+icon = SubResource("CanvasTexture_6ik6a")
+metadata/_edit_use_anchors_ = true
+
+[node name="Button2" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.41000003
+anchor_top = 0.75000006
+anchor_right = 0.59000003
+anchor_bottom = 0.91700006
+offset_left = 0.099975586
+offset_top = -3.0517578e-05
+offset_right = -0.10003662
+offset_bottom = -0.120025635
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+theme = ExtResource("1_w22if")
+text = "Skill 2"
+icon = SubResource("CanvasTexture_0m63l")
+metadata/_edit_use_anchors_ = true
+
+[node name="Button3" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.71900004
+anchor_top = 0.75000006
+anchor_right = 0.89800006
+anchor_bottom = 0.91700006
+offset_left = -0.16003418
+offset_top = -3.0517578e-05
+offset_right = 0.27996826
+offset_bottom = -0.120025635
+size_flags_horizontal = 3
+theme = ExtResource("1_w22if")
+text = "Skill 3"
+icon = SubResource("CanvasTexture_xkpdp")
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(582, 227)
+sprite_frames = SubResource("SpriteFrames_puc7s")
+frame_progress = 0.51541805
