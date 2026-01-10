@@ -37,6 +37,8 @@ public partial class Manager : Node2D {
 
 	public static GameState sGameState = GameState.Error;
 
+	private static HashSet<Vector2> mOccupiedTiles = new HashSet<Vector2>();
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
 		sGameState = GameState.PlayerActions;
@@ -63,6 +65,19 @@ public partial class Manager : Node2D {
 
 			enemies.Add(newEnemy);
 		}
+	}
+
+	public static bool IsTileOccupied(Vector2 pos) {
+		return mOccupiedTiles.Contains(pos);
+	}
+
+	public static bool ReserveTile(Vector2 pos) {
+		if (IsTileOccupied(pos)) {
+			return false;
+		}
+
+		mOccupiedTiles.Add(pos);
+		return true;
 	}
 
 	private void PrepareEnemyActions() {
@@ -113,6 +128,7 @@ public partial class Manager : Node2D {
 					// Enemies prepare next turn
 					if (completed) {
 						sGameState = GameState.PlayerActions;
+						mOccupiedTiles.Clear();
 						PrepareEnemyActions();
 					}
 

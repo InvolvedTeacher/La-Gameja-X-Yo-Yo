@@ -2,6 +2,7 @@ using Godot;
 using LaGamejaXYoYo.scripts;
 using LaGamejaXYoYo.scripts.actions;
 using System;
+using System.Collections.Generic;
 
 public partial class Enemy1 : Enemy {
 
@@ -70,6 +71,8 @@ public partial class Enemy1 : Enemy {
 
 		float distance = 0.0f;
 		Vector2 previous = Position;
+		// Store all valid candidates
+		List<Vector2> candidateTiles = new();
 
 		foreach (Vector2 path in navigationPath) {
 			distance += previous.DistanceTo(path);
@@ -79,14 +82,21 @@ public partial class Enemy1 : Enemy {
 			}
 
 			previous = path;
+			candidateTiles.Add(previous);
 		}
 
-		targetPosition = Utils.GetTilePosition(previous);
 
-		mTargetTileHighlight.GlobalPosition = targetPosition;
-		mTargetTileHighlight.UpdateVisibility(true);
+		for (int i = candidateTiles.Count - 1; i >= 0; i--) {
+			targetPosition = Utils.GetTilePosition(candidateTiles[i]);
 
-		mMoveAction = new(targetPosition, this);
+			if (Manager.ReserveTile(targetPosition)) {
+				mTargetTileHighlight.GlobalPosition = targetPosition;
+				mTargetTileHighlight.UpdateVisibility(true);
+
+				mMoveAction = new(targetPosition, this);
+				break;
+			}
+		}
 	}
 
 	public override void ExecuteActions() {
