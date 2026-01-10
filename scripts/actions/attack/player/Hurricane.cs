@@ -15,7 +15,7 @@ namespace LaGamejaXYoYo.scripts.actions.attack.player {
 			get => mDamage;
 			set => mDamage = value;
 		}
-		private int mDamage;
+		private int mDamage = 1;
 		public Hurricane(Manager manager) : base(manager) {
 		}
 

@@ -12,7 +12,7 @@ public abstract partial class Enemy : BaseCharacter {
         get => mHealthPoints;
         set => mHealthPoints = value;
     }
-    private float mHealthPoints;
+    private float mHealthPoints = 1;
 
     internal Player mPlayer;
 
@@ -34,6 +34,10 @@ public abstract partial class Enemy : BaseCharacter {
 
     public void TakeDamage(int damage) {
         mHealthPoints -= damage;
+    }
+
+    public bool IsDead() {
+        return mHealthPoints <= 0;
     }
 }
 

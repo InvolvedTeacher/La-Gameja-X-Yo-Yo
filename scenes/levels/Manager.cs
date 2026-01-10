@@ -160,6 +160,21 @@ public partial class Manager : Node2D {
 			case GameState.TakeDamage: {
 
 
+					List<Enemy> deadEmemies = new List<Enemy>();
+					foreach (var enemy in mEnemies) {
+						if (enemy.IsDead()) {
+							deadEmemies.Add(enemy);
+						}
+					}
+
+					foreach (var enemy in deadEmemies) {
+						mEnemies.Remove(enemy);
+						if (IsInstanceValid(enemy)) {
+							enemy.QueueFree();
+						}
+					}
+					deadEmemies.Clear();
+
 					// Enemies prepare next turn
 					sGameState = GameState.PlayerActions;
 					mOccupiedTiles.Clear();
