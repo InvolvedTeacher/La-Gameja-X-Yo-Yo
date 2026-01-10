@@ -67,12 +67,8 @@ public partial class Manager : Node2D {
 		}
 	}
 
-	public static bool IsTileOccupied(Vector2 pos) {
-		return mOccupiedTiles.Contains(pos);
-	}
-
 	public static bool ReserveTile(Vector2 pos) {
-		if (IsTileOccupied(pos)) {
+		if (mOccupiedTiles.Contains(pos)) {
 			return false;
 		}
 
