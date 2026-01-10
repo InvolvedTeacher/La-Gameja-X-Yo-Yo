@@ -32,6 +32,14 @@ public partial class Manager : Node2D {
 		sGameState = GameState.PlayerActions;
 	}
 
+	public override void _Input(InputEvent @event) {
+		base._Input(@event);
+
+		if (Input.IsActionJustPressed("ui_accept")) {
+			sGameState = GameState.ExecuteActions;
+		}
+	}
+
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta) {
 
