@@ -45,7 +45,6 @@ public partial class Player : CharacterBody2D {
 
 		foreach (Vector2 path in navigationPath) {
 			distance += previous.DistanceTo(path);
-			GD.Print(distance);
 			previous = path;
 		}
 
