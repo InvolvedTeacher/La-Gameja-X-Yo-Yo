@@ -34,9 +34,9 @@ public partial class Player : CharacterBody2D {
 	private bool IsInRangeForMovement(Vector2 target) {
 		mAuxNavAgent.TargetPosition = target;
 
-        //** Force navigation calculation
+		//** Force navigation calculation
 		//** Known godot issue due to multithreading **
-        mAuxNavAgent.IsNavigationFinished();
+		mAuxNavAgent.IsNavigationFinished();
 		//**
 
 		Vector2[] navigationPath = mAuxNavAgent.GetCurrentNavigationPath();
