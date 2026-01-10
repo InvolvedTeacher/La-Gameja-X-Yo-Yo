@@ -41,7 +41,6 @@ public partial class Player : BaseCharacter {
 
 			if (IsMoveActionDone()) {
 				if (@event is InputEventKey keyEvent && keyEvent.Pressed && keyEvent.Keycode == Key.Q) {
-					GD.Print("Hurricane Attack");
 					HurricaneAttack();
 				}
 			}
@@ -168,7 +167,6 @@ public partial class Player : BaseCharacter {
 	}
 
 	public override void ExecuteAttack() {
-		GD.Print("ExecuteAttack...");
 		if (mAttackAction == null) { 
 			return;
 		}

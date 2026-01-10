@@ -30,7 +30,6 @@ namespace LaGamejaXYoYo.scripts.actions.attack.player {
 				if (distance <= radius)
 					result.Add(enemy);
 			}
-			GD.Print("Getting enemies on range: " + result.Count);
 			return result;
 		}
 		public override void _Draw() {
@@ -39,13 +38,10 @@ namespace LaGamejaXYoYo.scripts.actions.attack.player {
 				Utils.GetTileSize(),
 				new Color(1, 0, 0, 0.3f)
 			);
-			GD.Print("Drawing...");
-
 		}
 
 
 		public override void Execute() {
-			GD.Print("Executing attack!!!");
 			Vector2 playerTile = Utils.GetTilePosition(mManager.GetPlayer().GlobalPosition);
 
 			var targets = GetEnemiesInRadius(playerTile, Utils.GetTileSize());
