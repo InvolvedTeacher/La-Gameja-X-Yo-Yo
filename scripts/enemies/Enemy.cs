@@ -7,6 +7,13 @@ using System.Threading.Tasks;
 
 public abstract partial class Enemy : BaseCharacter {
 
+    [Export(PropertyHint.None, "suffix:HP")]
+    public float HealthPoints {
+        get => mHealthPoints;
+        set => mHealthPoints = value;
+    }
+    private float mHealthPoints = 1;
+
     internal Player mPlayer;
 
     internal NavigationAgent2D mNavigationAgent2D = null;
@@ -24,5 +31,13 @@ public abstract partial class Enemy : BaseCharacter {
     public abstract void Attack();
 
     public abstract void PrepareActions();
+
+    public void TakeDamage(int damage) {
+        mHealthPoints -= damage;
+    }
+
+    public bool IsDead() {
+        return mHealthPoints <= 0;
+    }
 }
 

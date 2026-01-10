@@ -26,11 +26,14 @@ public abstract partial class BaseCharacter : CharacterBody2D {
 
     public abstract void MoveToNewTile(Vector2 target);
 
-	public abstract bool MovementFinished();
+    public abstract bool MovementFinished();
 
-    public abstract void ExecuteActions();
+    public abstract void ExecuteMovement();
+    public abstract bool MovementActionFinished();
 
-    public abstract bool AllActionsFinished();
+    public abstract void ExecuteAttack();
+    public abstract bool AttackActionFinished();
 
+    public abstract void ExecuteDamage();
 
-    }
+}
