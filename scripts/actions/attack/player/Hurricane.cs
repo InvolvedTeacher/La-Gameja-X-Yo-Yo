@@ -26,7 +26,7 @@ namespace LaGamejaXYoYo.scripts.actions.attack.player {
 				Vector2 enemyTile = enemy.Position;
 
 				float distance = center.DistanceTo(enemyTile);
-				if (distance <= radius) {
+				if (distance < radius * 2) {
 					result.Add(enemy);
 				}
 			}
